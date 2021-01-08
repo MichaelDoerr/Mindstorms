@@ -1,22 +1,29 @@
 package parcours;
 
-public abstract class Routine {
-	private SubRoutine routine;
-	private Sensors sensors;
-	private Motors motors;
+import java.util.HashMap;
 
-	public Routine(SubRoutine routine, Sensors sensors, Motors motors) {
-		this.routine = routine;
+
+public abstract class Routine {
+	protected Sensors sensors;
+	protected Motors motors;
+	protected HashMap<String, Float> colors;
+	
+	/**
+	 * Everything needed for a routine
+	 * @param sensors
+	 * @param motors
+	 * @param colors
+	 */
+	public Routine(Sensors sensors, Motors motors, HashMap<String, Float> colors) {
 		this.sensors = sensors;
 		this.motors = motors;
+		this.colors = colors;
 	}
 
-	public SubRoutine getroutine() {
-		return routine;
-	}
-	
-	public void run() {}
-	
-	public void setColors() {}
+	/**
+	 * Has to stop if Button.ESCAPE is pressed
+	 * @return true if the routine stopped itself, false if Button.ESCAPE was pressed
+	 */
+	public boolean run() {return true;}
 
 }

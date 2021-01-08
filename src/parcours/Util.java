@@ -3,7 +3,6 @@ package parcours;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.sensor.SensorMode;
 import lejos.utility.Delay;
 

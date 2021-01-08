@@ -14,6 +14,13 @@ public class Motors {
 		this.largeMotorB = new EV3LargeRegulatedMotor(MotorPort.B);
 	}
 	
+	/**
+	 * Set the speed of a motor.
+	 * If speed is negative, motor will turn backwards.
+	 * 
+	 * @param motor this.largeMotorABCD
+	 * @param speed the speed for motor.setSpeed(speed)
+	 */
 	public static void motorSpeed(EV3LargeRegulatedMotor motor, float speed) {		
 		if (0 <= speed) {
 			motor.setSpeed(new Float(speed).intValue());
@@ -22,6 +29,11 @@ public class Motors {
 			motor.setSpeed(new Float(-speed).intValue());
 			motor.backward();
 		}
+	}
+	
+	public void close() {
+		largeMotorA.close();
+		largeMotorB.close();
 	}
 
 }

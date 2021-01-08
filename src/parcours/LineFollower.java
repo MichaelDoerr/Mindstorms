@@ -1,12 +1,6 @@
 package parcours;
 import lejos.hardware.Button;
-import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.SensorPort;
-import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.SensorMode;
 import lejos.utility.Delay;
 
 
@@ -28,12 +22,7 @@ public class LineFollower {
 		//Util.setColors(mode, sampleBlack, sampleWhite);
 		sampleWhite[0] = 88.0f;
 		sampleBlack[0] = 6.0f;
-		
-		int defaultPower = 20;
-		int multiplyingFactor = 50;
 
-		
-		float[] colorGet = new float[1];
 		float color;
 		float avgLight = (sampleWhite[0] - sampleBlack[0]) / 2;
 		float maxSpeed = 120.0f;
@@ -79,6 +68,8 @@ public class LineFollower {
 			//Delay.msDelay(200);
 			
 		}
+		sensors.close();
+		motors.close();
 
 	}
 }

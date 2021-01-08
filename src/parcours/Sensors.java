@@ -35,13 +35,25 @@ public class Sensors {
 		this.touch = new float[this.touchSample.sampleSize()];
 	}
 	
+	/**
+	 * get a sample of the sensor in the given mode
+	 * 
+	 * @param sensor this.anySensor
+	 * @param mode the mode
+	 * @return the sample
+	 */
 	public float[] getSample(BaseSensor sensor, String mode) {
 		float[] sample = new float[sensor.getMode(mode).sampleSize()];
 		sensor.getMode(mode).fetchSample(sample, 0);
 		return sample;
 	}
 	
-	
+	/**
+	 * get a sample of the sensors standard mode
+	 * 
+	 * @param sensor this.anySensor
+	 * @return the sample
+	 */
 	public float[] getSample(BaseSensor sensor) {
 		if (sensor == this.colorSensor) {
 			this.colorSample.fetchSample(color, 0);
