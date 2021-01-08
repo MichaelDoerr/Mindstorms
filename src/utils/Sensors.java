@@ -1,4 +1,4 @@
-package parcours;
+package utils;
 
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.BaseSensor;

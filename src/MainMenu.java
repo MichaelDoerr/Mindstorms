@@ -3,14 +3,14 @@ import java.util.HashMap;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 import lejos.utility.TextMenu;
-import parcours.ColorPicker;
-import parcours.FollowLine;
-import parcours.LabyrinthEscaper;
-import parcours.Motors;
-import parcours.ObstaclePusher;
-import parcours.Routine;
-import parcours.Sensors;
-import parcours.SubRoutine;
+import routines.ColorPicker;
+import routines.FollowLine;
+import routines.LabyrinthEscaper;
+import routines.ObstaclePusher;
+import routines.Routine;
+import routines.SubRoutine;
+import utils.Motors;
+import utils.Sensors;
 
 
 public class MainMenu {

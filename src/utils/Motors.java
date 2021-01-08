@@ -1,4 +1,4 @@
-package parcours;
+package utils;
 
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
