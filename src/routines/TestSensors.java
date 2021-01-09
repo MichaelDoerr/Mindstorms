@@ -1,7 +1,8 @@
-package parcours;
+package routines;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
+import utils.Sensors;
 public class TestSensors {
 	
 	public static void main(String[] args) {

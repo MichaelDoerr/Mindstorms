@@ -16,9 +16,28 @@ public class FollowLine extends Routine {
 
 	public boolean run() {
 		LCD.drawString("FollowLine here", 0, 0);
-		LCD.drawString("soon", 0, 1);
+		boolean end = false;
+		int tacho = 0;
+		while (!end) {
+			tacho = Line.followTillEnd(super.sensors, super.motors, super.colors);
+			if (0 < tacho) {
+				motors.largeMotorA.resetTachoCount();
+				while (-motors.largeMotorA.getTachoCount() < tacho) {
+					Motors.motorSpeed(motors.largeMotorA, -Line.MAX_SPEED);
+					Motors.motorSpeed(motors.largeMotorB, -Line.MIN_SPEED);
+					end = Button.ESCAPE.isDown();
+				}
+				
+				if (!end) {
+					end = Line.findBlack(super.sensors, super.motors, super.colors);		
+				}		
+			} else {
+				end = true;
+			}
+			
+		}
 		Delay.msDelay(2000);
 		LCD.clear();
-		return !Button.ESCAPE.isDown();
+		return end;
 	}
 }

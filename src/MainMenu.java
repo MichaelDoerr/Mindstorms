@@ -24,7 +24,7 @@ public class MainMenu {
 		this.sensors = new Sensors();
 		
 		colors = new HashMap<String, Float>();
-		colors.put("black", 0.055f);
+		colors.put("black", 0.055f); //standard colors
 		colors.put("white", 0.855f);
 	}
 	
@@ -83,5 +83,8 @@ public class MainMenu {
 			Delay.msDelay(2000);
 			
 		}
+
+		sensors.close();
+		motors.close();		
 	}
 }
