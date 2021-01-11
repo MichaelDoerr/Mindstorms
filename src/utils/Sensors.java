@@ -30,9 +30,9 @@ public class Sensors {
 		this.ultraSonicSample = this.ultraSonicSensor.getMode("Distance");
 		this.distance = new float[this.ultraSonicSample.sampleSize()];
 		
-		this.touchSensor = new EV3TouchSensor(SensorPort.S3);
-		this.touchSample = this.touchSensor.getTouchMode();
-		this.touch = new float[this.touchSample.sampleSize()];
+		//this.touchSensor = new EV3TouchSensor(SensorPort.S3);
+		//this.touchSample = this.touchSensor.getTouchMode();
+		//this.touch = new float[this.touchSample.sampleSize()];
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class Sensors {
 	
 	public void close() {
 		this.colorSensor.close();
-		this.touchSensor.close();
+		//this.touchSensor.close();
 		this.ultraSonicSensor.close();
 	}
 

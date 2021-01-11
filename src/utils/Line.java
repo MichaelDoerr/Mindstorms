@@ -1,15 +1,16 @@
-package routines;
+package utils;
+
+import utils.ObstacleFinder;
+
 import java.util.HashMap;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
-import utils.Motors;
-import utils.Sensors;
 
 
 public class Line {
-		public static final float MAX_SPEED = 120.0f;
+		public static final float MAX_SPEED = 150.0f;
 		public static final float MIN_SPEED = -MAX_SPEED / 2.0f;
 	
 	
@@ -26,11 +27,12 @@ public class Line {
 		float tolerance = 0.05f;
 		float aSpeed;
 		float bSpeed;
+		boolean end = false;
 		float m = 0;
 		int tacho = 0;
 		motors.largeMotorA.resetTachoCount();
 		
-		while (!Button.ESCAPE.isDown() && tacho < 400) {
+		while (!end && tacho < 400) {
 
 			color = sensors.getSample(sensors.colorSensor, "Red")[0];
 			
@@ -61,7 +63,12 @@ public class Line {
 				bSpeed = MAX_SPEED;
 			}
 			
+			if (ObstacleFinder.obstacleAhead(sensors)) {
+				return -2;
+			}
+			
 			tacho = motors.largeMotorA.getTachoCount();
+			end = Button.ESCAPE.isDown();
 			
 			Motors.motorSpeed(motors.largeMotorA, aSpeed);
 			Motors.motorSpeed(motors.largeMotorB, bSpeed);
@@ -76,7 +83,7 @@ public class Line {
 		Motors.motorSpeed(motors.largeMotorA, 0f);
 		Motors.motorSpeed(motors.largeMotorB, 0f);
 		
-		return (tacho < 400) ? 0 : tacho;
+		return (end) ? -1 : tacho;
 	}
 	
 	
@@ -85,18 +92,19 @@ public class Line {
 		float sampleBlack = colors.get("black");
 
 		float color;
-		float maxSpeed = 120.0f;
-		float minSpeed = 0f;
 		float tolerance = 0.05f;
 		int tachoRadius = 200;
 		int tachoStraight = 100;
-		float m = 0;
-		int tacho = 0;
 		boolean pressedEscape = false;
 		boolean foundBlack = false;
 		
-		Motors.motorSpeed(motors.largeMotorA, 0f);
-		Motors.motorSpeed(motors.largeMotorB, 0f);
+		Motors.motorSpeed(motors.largeMotorA, MAX_SPEED);
+		Motors.motorSpeed(motors.largeMotorB, MAX_SPEED);
+		motors.largeMotorA.resetTachoCount();
+		
+		while (motors.largeMotorA.getTachoCount() <= 10) {
+			//busy waiting
+		}
 		
 		while (!pressedEscape && !foundBlack) {
 			
@@ -109,8 +117,8 @@ public class Line {
 					Motors.motorSpeed(motors.largeMotorA, 0f);
 					Motors.motorSpeed(motors.largeMotorB, 0f);
 				} else {
-					Motors.motorSpeed(motors.largeMotorA, maxSpeed);
-					Motors.motorSpeed(motors.largeMotorB, maxSpeed);
+					Motors.motorSpeed(motors.largeMotorA, MAX_SPEED);
+					Motors.motorSpeed(motors.largeMotorB, MAX_SPEED);
 				}
 				pressedEscape = Button.ESCAPE.isDown();
 			}	
@@ -126,12 +134,12 @@ public class Line {
 					foundBlack = true;
 					Motors.motorSpeed(motors.largeMotorA, 0f);
 				} else {
-					Motors.motorSpeed(motors.largeMotorA, maxSpeed);
+					Motors.motorSpeed(motors.largeMotorA, MAX_SPEED);
 				}
 				pressedEscape = Button.ESCAPE.isDown();
 			}			
 			while(!pressedEscape && !foundBlack && 0 <= motors.largeMotorA.getTachoCount()) {
-				Motors.motorSpeed(motors.largeMotorA, -maxSpeed);
+				Motors.motorSpeed(motors.largeMotorA, -MAX_SPEED);
 			}
 			Motors.motorSpeed(motors.largeMotorA, 0f);
 			Motors.motorSpeed(motors.largeMotorB, 0f);
@@ -145,12 +153,12 @@ public class Line {
 					foundBlack = true;
 					Motors.motorSpeed(motors.largeMotorB, 0f);
 				} else {
-					Motors.motorSpeed(motors.largeMotorB, maxSpeed);
+					Motors.motorSpeed(motors.largeMotorB, MAX_SPEED);
 				}
 				pressedEscape = Button.ESCAPE.isDown();
 			}			
 			while(!pressedEscape && !foundBlack && 0 <= motors.largeMotorB.getTachoCount()) {
-				Motors.motorSpeed(motors.largeMotorB, -maxSpeed);
+				Motors.motorSpeed(motors.largeMotorB, -MAX_SPEED);
 			}
 
 			Motors.motorSpeed(motors.largeMotorA, 0f);
