@@ -17,15 +17,20 @@ public class MainMenu {
 	
 	Motors motors;
 	Sensors sensors;
-	HashMap<String, Float> colors;
+	HashMap<String, Float[]> colors;
 
 	public MainMenu() {
 		this.motors = new Motors();
 		this.sensors = new Sensors();
 		
-		colors = new HashMap<String, Float>();
-		colors.put("black", 0.055f); //standard colors
-		colors.put("white", 0.855f);
+		colors = new HashMap<String, Float[]>();
+		Float[] black = {0.021f,0.032f,0.012f};
+		Float[] white = {0.321f,0.502f,0.228f};
+		Float[] green = {0.053f,0.257f,0.024f};
+		
+		colors.put("black", black); //standard colors
+		colors.put("white", white);
+		colors.put("green", green);
 	}
 	
 	/**

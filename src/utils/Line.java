@@ -7,6 +7,7 @@ import java.util.HashMap;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
+import routines.ColorPicker;
 
 
 public class Line {
@@ -17,24 +18,33 @@ public class Line {
 	
 	
 	
-	public static int followTillEnd(Sensors sensors, Motors motors, HashMap<String, Float> colors) {
+	public static int followTillEnd(Sensors sensors, Motors motors, HashMap<String, Float[]> colors) {
 		
-		float sampleWhite = colors.get("white");		
-		float sampleBlack = colors.get("black");
+		float sampleWhite = ColorPicker.getGreyMode(colors.get("white"));
+		float sampleBlack = ColorPicker.getGreyMode(colors.get("black"));
 
 		float color;
+		float[] colorSample;
 		float avgLight = (sampleWhite - sampleBlack) / 2;
-		float tolerance = 0.05f;
+		float tolerance = 0.1f;
 		float aSpeed;
 		float bSpeed;
 		boolean end = false;
 		float m = 0;
 		int tacho = 0;
+		
+		LCD.clear();
+		LCD.drawString("W: " + String.valueOf(sampleWhite), 0, 1);
+		LCD.drawString("B: " + String.valueOf(sampleBlack), 0, 2);
+		LCD.drawString("avgl: " + String.valueOf(avgLight), 0, 5);
+		
 		motors.largeMotorA.resetTachoCount();
 		
 		while (!end && tacho < 400) {
+			
+			colorSample = sensors.getSample(sensors.colorSensor);
 
-			color = sensors.getSample(sensors.colorSensor, "Red")[0];
+			color = ColorPicker.getGreyMode(colorSample);
 			
 			if (sampleWhite * (1.0 - tolerance) <= color) {
 				aSpeed = MAX_SPEED;
@@ -63,7 +73,15 @@ public class Line {
 				bSpeed = MAX_SPEED;
 			}
 			
+			if (ColorPicker.sameColor(colorSample, colors.get("green"))) {
+				Motors.motorSpeed(motors.largeMotorA, 0);
+				Motors.motorSpeed(motors.largeMotorB, 0);
+				return -3;
+			}
+			
 			if (ObstacleFinder.obstacleAhead(sensors)) {
+				Motors.motorSpeed(motors.largeMotorA, 0);
+				Motors.motorSpeed(motors.largeMotorB, 0);
 				return -2;
 			}
 			
@@ -87,12 +105,12 @@ public class Line {
 	}
 	
 	
-	public static boolean findBlack(Sensors sensors, Motors motors, HashMap<String, Float> colors) {
+	public static boolean findBlack(Sensors sensors, Motors motors, HashMap<String, Float[]> colors) {
 		
-		float sampleBlack = colors.get("black");
+		float sampleBlack = ColorPicker.getGreyMode(colors.get("black"));
 
 		float color;
-		float tolerance = 0.05f;
+		float tolerance = 0.15f;
 		int tachoRadius = 200;
 		int tachoStraight = 100;
 		boolean pressedEscape = false;
@@ -110,7 +128,7 @@ public class Line {
 			
 			motors.largeMotorA.resetTachoCount();			
 			while(!pressedEscape && !foundBlack && motors.largeMotorA.getTachoCount() <= tachoStraight) {
-				color = sensors.getSample(sensors.colorSensor, "Red")[0];
+				color = ColorPicker.getGreyMode(sensors.getSample(sensors.colorSensor));
 				
 				if (color <= sampleBlack * (1.0 + tolerance)) {
 					foundBlack = true;
@@ -128,7 +146,7 @@ public class Line {
 			
 			motors.largeMotorA.resetTachoCount();
 			while(!pressedEscape && !foundBlack && motors.largeMotorA.getTachoCount() <= tachoRadius) {
-				color = sensors.getSample(sensors.colorSensor, "Red")[0];
+				color = ColorPicker.getGreyMode(sensors.getSample(sensors.colorSensor));
 				
 				if (color <= sampleBlack * (1.0 + tolerance)) {
 					foundBlack = true;
@@ -147,7 +165,7 @@ public class Line {
 			
 			motors.largeMotorB.resetTachoCount();
 			while(!pressedEscape && !foundBlack && motors.largeMotorB.getTachoCount() < tachoRadius) {
-				color = sensors.getSample(sensors.colorSensor, "Red")[0];
+				color = ColorPicker.getGreyMode(sensors.getSample(sensors.colorSensor));
 				
 				if (color <= sampleBlack * (1.0 + tolerance)) {
 					foundBlack = true;

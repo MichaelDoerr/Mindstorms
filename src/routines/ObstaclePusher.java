@@ -10,7 +10,7 @@ import utils.Sensors;
 
 public class ObstaclePusher extends Routine {
 
-	public ObstaclePusher(Sensors sensors, Motors motors, HashMap<String, Float> colors) {
+	public ObstaclePusher(Sensors sensors, Motors motors, HashMap<String, Float[]> colors) {
 		super(sensors, motors, colors);
 	}
 

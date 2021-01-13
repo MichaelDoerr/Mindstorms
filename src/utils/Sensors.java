@@ -5,6 +5,7 @@ import lejos.hardware.sensor.BaseSensor;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;
 
 public class Sensors {
@@ -23,6 +24,8 @@ public class Sensors {
 	
 	public Sensors() {
 		this.colorSensor = new EV3ColorSensor(SensorPort.S1);
+		this.colorSensor.setCurrentMode(colorSensor.getRGBMode().getName());
+	    this.colorSensor.setFloodlight(Color.WHITE);
 		this.colorSample = this.colorSensor.getRGBMode();
 		this.color = new float[this.colorSample.sampleSize()];
 		

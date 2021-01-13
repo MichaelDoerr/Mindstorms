@@ -16,7 +16,7 @@ import utils.Sensors;
 
 public class FollowLine extends Routine {
 
-	public FollowLine(Sensors sensors, Motors motors, HashMap<String, Float> colors) {
+	public FollowLine(Sensors sensors, Motors motors, HashMap<String, Float[]> colors) {
 		super(sensors, motors, colors);
 	}
 	
@@ -25,6 +25,7 @@ public class FollowLine extends Routine {
 		boolean end = false;
 		int tacho = 0;
 		
+		end = !Line.findBlack(super.sensors, super.motors, super.colors);
 		
 		while (!end) {
 			tacho = Line.followTillEnd(super.sensors, super.motors, super.colors);
@@ -41,38 +42,10 @@ public class FollowLine extends Routine {
 				}
 				
 			} else if (tacho == -2) {
-				/*
-				LCD.clear();
-				LCD.drawString("a: " + String.valueOf(-(int)((wheelDistance * 3.14f / 4.0f) * radiusToDegree)), 0, 1);
-				LCD.drawString("b: " + String.valueOf((int)((wheelDistance * 3.14f / 4.0f) * radiusToDegree)), 0, 2);
-				
-				Motors.motorSpeed(motors.largeMotorA, -60);
-				Motors.motorSpeed(motors.largeMotorB, 60);	
-				
-				motors.largeMotorA.resetTachoCount();
-				motors.largeMotorB.resetTachoCount();
-				
-				motors.largeMotorA.rotate(-(int)((wheelDistance * 3.14f / 4.0f) * radiusToDegree));
-				
-				Motors.motorSpeed(motors.largeMotorA, 60 * (radius * 2 + wheelDistance) / (radius * 2));
-				Motors.motorSpeed(motors.largeMotorB, 60);
-				
-				motors.largeMotorA.resetTachoCount();
-				
-				motors.largeMotorA.rotate((int)(((radius * 2 + wheelDistance) * 3.14) * radiusToDegree));
-				
-				Motors.motorSpeed(motors.largeMotorA, -60);
-				Motors.motorSpeed(motors.largeMotorB, 60);
-				
-				motors.largeMotorA.resetTachoCount();
-				
-				motors.largeMotorA.rotate(-(int)((wheelDistance * 3.14f / 4.0f) * radiusToDegree)); */
-				
+			
 				if (! (ObstacleFinder.getBehind(motors) && !Line.findBlack(super.sensors, super.motors, super.colors))) {
 					tacho = -1;
 				}
-				
-				
 			} else {
 				end = true;
 			}

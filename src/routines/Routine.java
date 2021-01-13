@@ -9,7 +9,7 @@ import utils.Sensors;
 public abstract class Routine {
 	protected Sensors sensors;
 	protected Motors motors;
-	protected HashMap<String, Float> colors;
+	protected HashMap<String, Float[]> colors;
 	
 	/**
 	 * Everything needed for a routine
@@ -17,7 +17,7 @@ public abstract class Routine {
 	 * @param motors
 	 * @param colors
 	 */
-	public Routine(Sensors sensors, Motors motors, HashMap<String, Float> colors) {
+	public Routine(Sensors sensors, Motors motors, HashMap<String, Float[]> colors) {
 		this.sensors = sensors;
 		this.motors = motors;
 		this.colors = colors;

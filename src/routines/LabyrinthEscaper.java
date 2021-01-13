@@ -10,7 +10,7 @@ import utils.Sensors;
 
 public class LabyrinthEscaper extends Routine {
 
-	public LabyrinthEscaper(Sensors sensors, Motors motors, HashMap<String, Float> colors) {
+	public LabyrinthEscaper(Sensors sensors, Motors motors, HashMap<String, Float[]> colors) {
 		super(sensors, motors, colors);
 	}
 
