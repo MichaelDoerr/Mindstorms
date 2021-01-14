@@ -2,13 +2,9 @@ package routines;
 
 import java.util.HashMap;
 
-import com.sun.jndi.url.dns.dnsURLContext;
-
 import lejos.hardware.Button;
-import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
-import sun.security.util.DisabledAlgorithmConstraints;
 import utils.Line;
 import utils.Motors;
 import utils.ObstacleFinder;

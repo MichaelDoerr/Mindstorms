@@ -1,12 +1,9 @@
 package utils;
 
-import utils.ObstacleFinder;
-
 import java.util.HashMap;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.utility.Delay;
 import routines.ColorPicker;
 
 
