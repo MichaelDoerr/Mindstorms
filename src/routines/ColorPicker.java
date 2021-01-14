@@ -18,8 +18,7 @@ public class ColorPicker extends Routine {
 	public boolean run() {
 		String[][] colorsToGet = { 
 				{"white"}, // {colorName, sensorMode},
-				{"black"},
-				{"green"}
+				{"black"}
 				};
 		int pressedButton;
 		float[] gotColor;

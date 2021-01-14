@@ -85,7 +85,7 @@ public class MainMenu {
 			LCD.clear();
 			completeRun = routine.run();
 
-			Delay.msDelay(2000);
+			Delay.msDelay(1000);
 			
 		}
 

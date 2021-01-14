@@ -9,9 +9,4 @@ import lejos.utility.Delay;
 public class Util {
 	private Util() {
 	}
-	
-	public static void setColors(SensorMode mode, float[] sampleBlack, float[] sampleWhite) {
-		
-	}
-
 }
