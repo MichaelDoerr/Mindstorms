@@ -17,6 +17,7 @@ public class FollowLine extends Routine {
 	}
 	
 	public boolean run() {
+		LCD.clear();
 		LCD.drawString("FollowLine here", 0, 0);
 		boolean end = false;
 		int tacho = 0;

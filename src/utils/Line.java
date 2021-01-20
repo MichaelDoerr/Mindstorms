@@ -30,11 +30,6 @@ public class Line {
 		float m = 0;
 		int tacho = 0;
 		
-		LCD.clear();
-		LCD.drawString("W: " + String.valueOf(sampleWhite), 0, 1);
-		LCD.drawString("B: " + String.valueOf(sampleBlack), 0, 2);
-		LCD.drawString("avgl: " + String.valueOf(avgLight), 0, 5);
-		
 		motors.largeMotorA.resetTachoCount();
 		
 		while (!end && tacho < 400) {
@@ -47,7 +42,8 @@ public class Line {
 				aSpeed = MAX_SPEED;
 				bSpeed = MIN_SPEED;
 				
-			} else if (color <= sampleBlack * (1.0 + tolerance)) {
+			} else if (color <= sampleBlack * (1.0 + tolerance) 
+					|| ColorPicker.sameColor(colorSample, colors.get("red"))) {
 				motors.largeMotorA.resetTachoCount();
 				aSpeed = MIN_SPEED;
 				bSpeed = MAX_SPEED;
@@ -87,11 +83,14 @@ public class Line {
 			
 			Motors.motorSpeed(motors.largeMotorA, aSpeed);
 			Motors.motorSpeed(motors.largeMotorB, bSpeed);
+			
+			/*
 			LCD.clear();
 			LCD.drawString("a: " + String.valueOf(aSpeed), 0, 1);
 			LCD.drawString("b: " + String.valueOf(bSpeed), 0, 2);
 			LCD.drawString("tacho: " + String.valueOf(motors.largeMotorA.getTachoCount()), 0, 3);
 			LCD.drawString("avgl: " + String.valueOf(avgLight), 0, 5);
+			*/
 			//Delay.msDelay(50);
 			
 		}
@@ -155,6 +154,7 @@ public class Line {
 			}			
 			while(!pressedEscape && !foundBlack && 0 <= motors.largeMotorA.getTachoCount()) {
 				Motors.motorSpeed(motors.largeMotorA, -MAX_SPEED);
+				pressedEscape = Button.ESCAPE.isDown();
 			}
 			Motors.motorSpeed(motors.largeMotorA, 0f);
 			Motors.motorSpeed(motors.largeMotorB, 0f);
@@ -174,6 +174,7 @@ public class Line {
 			}			
 			while(!pressedEscape && !foundBlack && 0 <= motors.largeMotorB.getTachoCount()) {
 				Motors.motorSpeed(motors.largeMotorB, -MAX_SPEED);
+				pressedEscape = Button.ESCAPE.isDown();
 			}
 
 			Motors.motorSpeed(motors.largeMotorA, 0f);

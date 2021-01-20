@@ -19,7 +19,8 @@ public class ColorPicker extends Routine {
 		String[][] colorsToGet = { 
 				{"white"}, // {colorName, sensorMode},
 				{"black"},
-				{"green"}
+				{"green"},
+				{"red"}
 				};
 		int pressedButton;
 		float[] gotColor;
@@ -56,10 +57,10 @@ public class ColorPicker extends Routine {
 	}
 	
 	public static float getGreyMode(Float[] colors) {
-		return (colors[0] + colors[1] + colors[2]);
+		return ( colors[1] + colors[2]);
 	}
 	public static float getGreyMode(float[] colors) {
-		return (colors[0] + colors[1] + colors[2]);
+		return ( colors[1] + colors[2]);
 	}
 
 	public static boolean sameColor(float[] colorSample, Float[] baseColor) {
