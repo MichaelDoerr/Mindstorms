@@ -25,40 +25,54 @@ public class ObstaclePusher extends Routine {
 		LCD.drawString("Obstacle here", 0, 0);
 		
 		while (!(color <= sampleBlack * (1.0 + tolerance))) {
-			Motors.motorSpeed(motors.largeMotorA, 100);
-			Motors.motorSpeed(motors.largeMotorB, 100);
+			Motors.motorSpeed(motors.largeMotorA, 150);
+			Motors.motorSpeed(motors.largeMotorB, 150);
 			color = ColorPicker.getGreyMode(sensors.getSample(sensors.colorSensor));
+			if (Button.ESCAPE.isDown()) {
+				Motors.motorSpeed(motors.largeMotorA, 0);
+				Motors.motorSpeed(motors.largeMotorB, 0);
+				return false;
+			}
 		}
-		LCD.drawString("Obstacle here", 0, 1);
 		motors.largeMotorA.resetTachoCount();
 		motors.largeMotorA.rotate(360, true);
 		motors.largeMotorB.rotate(360);
 		motors.largeMotorA.rotate(-180, true);
 		motors.largeMotorB.rotate(-180);
-		LCD.drawString("Obstacle here", 0, 2);
+		
 		distance = ObstacleFinder.findObstacle(sensors, motors);
+		if (distance == -1) {
+			return false;
+		}
 		distance = distance - 0.09f;
 		
 		while (0 < distance && distance < 2.5f) {
-			goTo = (int)(distance * Motors.RADIUS_TO_DEGREE);
-			LCD.drawString(goTo + "      ", 0, 4);
-			motors.goTo(goTo, goTo, 100, 100);			
+			goTo = (int)(distance * Motors.RADIUS_TO_DEGREE);			
+
+			if (!motors.goTo(goTo, goTo, 150, 150)) {
+				return false;
+			}
 			distance = ObstacleFinder.findObstacle(sensors, motors) - 0.09f;
+			if (distance == -1) {
+				return false;
+			}
 		}
-		LCD.drawString("Obstacle here", 0, 4);
 		color = ColorPicker.getGreyMode(sensors.getSample(sensors.colorSensor));
 		while (!(color <= sampleBlack * (1.0 + tolerance))) {
 			Motors.motorSpeed(motors.largeMotorA, 100);
 			Motors.motorSpeed(motors.largeMotorB, 100);
 			color = ColorPicker.getGreyMode(sensors.getSample(sensors.colorSensor));
+			if (Button.ESCAPE.isDown()) {
+				Motors.motorSpeed(motors.largeMotorA, 0);
+				Motors.motorSpeed(motors.largeMotorB, 0);
+				return false;
+			}
 		}
-		LCD.drawString("Obstacle here", 0, 5);
 		motors.largeMotorA.resetTachoCount();
-		motors.largeMotorA.rotate(300, true);
-		motors.largeMotorB.rotate(300);
-		motors.largeMotorA.rotate(-360, true);
-		motors.largeMotorB.rotate(-360);
-		LCD.drawString("Obstacle here", 0, 6);
+		motors.largeMotorA.rotate(100, true);
+		motors.largeMotorB.rotate(100);
+		motors.largeMotorA.rotate(-120, true);
+		motors.largeMotorB.rotate(-120);
 		
 		LCD.clear();
 		return !Button.ESCAPE.isDown();

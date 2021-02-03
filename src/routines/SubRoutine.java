@@ -9,10 +9,11 @@ public enum SubRoutine {
 	SETCOLORS("Set Colors", 0),
 	FOLLOWLINE("Follow Line", 1),
 	LABYRINTH("Labyrinth", 2),
-	OBSTACLE("Obstacle", 3);
+	OBSTACLE("Obstacle", 3),
+	COLOR("Color", 4);
 	//add more here
 	
-	public static final int COUNTSUBROUTINES = 4; //increase count
+	public static final int COUNTSUBROUTINES = 5; //increase count
 	private String name;
 	private int order;
 	
@@ -31,6 +32,7 @@ public enum SubRoutine {
 		routines[FOLLOWLINE.order] = FOLLOWLINE;
 		routines[LABYRINTH.order] = LABYRINTH;
 		routines[OBSTACLE.order] = OBSTACLE;
+		routines[COLOR.order] = COLOR;
 		//add more here
 		
 		return routines;

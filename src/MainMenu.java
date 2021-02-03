@@ -4,6 +4,7 @@ import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 import lejos.utility.TextMenu;
 import routines.ColorPicker;
+import routines.FindColors;
 import routines.FollowLine;
 import routines.LabyrinthEscaper;
 import routines.ObstaclePusher;
@@ -78,6 +79,10 @@ public class MainMenu {
 					break;
 				case 3:
 					routine = new ObstaclePusher(sensors, motors, colors);
+					selectedRoutine = selectedRoutine.next();
+					break;
+				case 4:
+					routine = new FindColors(sensors, motors, colors);
 					selectedRoutine = selectedRoutine.next();
 					break;
 				default:

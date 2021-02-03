@@ -55,6 +55,11 @@ public class ObstacleFinder {
 				degreeOfObstacle = motors.largeMotorA.getTachoCount();
 			}			
 			tachoCount = motors.largeMotorA.getTachoCount();
+			if (Button.ESCAPE.isDown()) {
+				Motors.motorSpeed(motors.largeMotorA, 0);
+				Motors.motorSpeed(motors.largeMotorB, 0);
+				return -1;
+			}
 		}
 		motors.largeMotorA.resetTachoCount();
 		motors.largeMotorB.resetTachoCount();
@@ -69,6 +74,11 @@ public class ObstacleFinder {
 		Motors.motorSpeed(motors.largeMotorB, speed);
 		while (tachoCount > degreeOfObstacle) {			
 			tachoCount = motors.largeMotorA.getTachoCount();
+			if (Button.ESCAPE.isDown()) {
+				Motors.motorSpeed(motors.largeMotorA, 0);
+				Motors.motorSpeed(motors.largeMotorB, 0);
+				return -1;
+			}
 		}
 		
 		

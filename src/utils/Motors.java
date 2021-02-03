@@ -1,5 +1,6 @@
 package utils;
 
+import lejos.hardware.Button;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 
@@ -33,7 +34,7 @@ public class Motors {
 		}
 	}
 	
-	public void goTo(int degreeA, int degreeB, float speedA, float speedB) {		
+	public boolean goTo(int degreeA, int degreeB, float speedA, float speedB) {		
 		speedA = Math.abs(speedA) * Math.signum(degreeA);
 		speedB = Math.abs(speedB) * Math.signum(degreeB);
 		degreeA = Math.abs(degreeA);
@@ -51,7 +52,14 @@ public class Motors {
 			if (!(Math.abs(this.largeMotorB.getTachoCount()) < degreeB)) {
 				motorSpeed(this.largeMotorB, 0);
 			}
+
+			if (Button.ESCAPE.isDown()) {
+				Motors.motorSpeed(this.largeMotorA, 0);
+				Motors.motorSpeed(this.largeMotorB, 0);
+				return false;
+			}
 		}
+		return true;
 	}
 	
 	public void close() {
