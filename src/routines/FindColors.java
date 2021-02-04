@@ -105,9 +105,9 @@ public class FindColors extends Routine {
 		Motors.motorSpeed(motors.largeMotorA, 30);
 		Motors.motorSpeed(motors.largeMotorB, 30);
 		if (this.turn) {
-			motors.largeMotorB.rotate(-15);
+			motors.largeMotorB.rotate(-10);
 		} else {
-			motors.largeMotorA.rotate(-15);
+			motors.largeMotorA.rotate(-10);
 		}
 
 		return true;
@@ -139,7 +139,7 @@ public class FindColors extends Routine {
 
 			} else if (color <= sampleBlack * (1.0 + tolerance)) {
 				aSpeed = Line.MIN_SPEED;
-				bSpeed = Line.MAX_SPEED;
+				bSpeed = Line.MAX_SPEED * 0.75f;
 
 			} else if (color < avgLight) {
 				m = (Line.MAX_SPEED - Line.MIN_SPEED) / (avgLight - sampleBlack);
