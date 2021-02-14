@@ -5,10 +5,8 @@ import java.util.HashMap;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.lcd.LCD;
-import lejos.utility.Delay;
 import utils.Line;
 import utils.Motors;
-import utils.ObstacleFinder;
 import utils.Sensors;
 
 public class FindColors extends Routine {
@@ -25,9 +23,6 @@ public class FindColors extends Routine {
 	}
 
 	public boolean run() {
-		float sampleBlack = ColorPicker.getGreyMode(colors.get("black"));
-		float color = ColorPicker.getGreyMode(sensors.getSample(sensors.colorSensor));
-		float tolerance = 0.1f;
 		LCD.drawString("Searching here", 0, 0);
 		
 		Line.findBlack(sensors, motors, colors);

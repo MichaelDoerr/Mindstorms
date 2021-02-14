@@ -2,12 +2,10 @@ package routines;
 
 import java.util.HashMap;
 
-import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 import utils.Line;
 import utils.Motors;
-import utils.ObstacleFinder;
 import utils.Sensors;
 
 public class LabyrinthEscaper extends Routine {

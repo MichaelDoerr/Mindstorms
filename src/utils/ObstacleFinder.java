@@ -1,7 +1,6 @@
 package utils;
 
 import lejos.hardware.Button;
-import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
 
 
