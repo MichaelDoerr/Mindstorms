@@ -134,7 +134,7 @@ public class FindColors extends Routine {
 
 			} else if (color <= sampleBlack * (1.0 + tolerance)) {
 				aSpeed = Line.MIN_SPEED;
-				bSpeed = Line.MAX_SPEED * 0.75f;
+				bSpeed = -Line.MIN_SPEED;
 
 			} else if (color < avgLight) {
 				m = (Line.MAX_SPEED - Line.MIN_SPEED) / (avgLight - sampleBlack);
