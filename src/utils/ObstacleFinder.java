@@ -105,7 +105,7 @@ public class ObstacleFinder {
 		motors.largeMotorA.resetTachoCount();
 		Motors.motorSpeed(motors.largeMotorA, speed * (radius * 2 + Motors.WHEEL_DISTANCE) / (radius * 2));
 		Motors.motorSpeed(motors.largeMotorB, speed);
-		while(!pressedEscape && motors.largeMotorA.getTachoCount() <= (int)(((radius * 2 + Motors.WHEEL_DISTANCE) * 3.14) * Motors.RADIUS_TO_DEGREE) * 0.95) {
+		while(!pressedEscape && motors.largeMotorA.getTachoCount() <= (int)(((radius * 2 + Motors.WHEEL_DISTANCE) * 3.14) * Motors.RADIUS_TO_DEGREE) * 0.90) {
 			pressedEscape = Button.ESCAPE.isDown();
 		}
 		
